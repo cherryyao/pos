@@ -72,34 +72,21 @@ function ItemDetails(buyedItems,allItems){
 
 //3.计算商品优惠活动
 
-//function Promotion(itemDetails,buyTweGetOneFree){
-//
-//    const barcodes=buyTweGetOneFree[0].barcodes;
-//    for(let item of itemDetails){
-//      for(let i =0 ;i<barcodes.length;i++){
-//        if(item.count%2==0){
-//          save += item.price;
-//          item.littlePrice -= item.price;
-//        }
-//        break;
-//      }
-//       sum += item.littlePrice;
-//    }
-//}
-function Promotion(itemDetails, buyTweGetOneFree) {
-  const barcodes = buyTweGetOneFree[0].barcodes;
-  for (let item of itemDetails) {
-    for (let i = 0; i < barcodes.length; i++) {
-      if (item.barcode === barcodes[i]) {
-        if (item.count / 2 > 0) {
-          save += item.price;
-          item.littlePrice -= (item.price);
+function Promotion(itemDetails,buyTweGetOneFree){
+
+    const barcodes=buyTweGetOneFree[0].barcodes;
+    for(let item of itemDetails){
+      for(let i =0 ;i<barcodes.length;i++){
+      if(item.barcode === barcodes[i]){
+      if(item.count/2>0){
+                save += item.price;
+                item.littlePrice -= item.price;
+              }
+              break;
         }
-        break;
       }
+       sum += item.littlePrice;
     }
-    sum += item.littlePrice;
-  }
 }
 
 //4.打印
