@@ -72,7 +72,7 @@ function ItemDetails(buyedItems,allItems){
 //3.计算商品优惠活动
 
 function Promotion(itemDetails,buyTweGetOneFree){
-
+    sum=0;
     const barcodes=buyTweGetOneFree[0].barcodes;
     for(let item of itemDetails){
       for(let i =0 ;i<barcodes.length;i++){
@@ -86,6 +86,8 @@ function Promotion(itemDetails,buyTweGetOneFree){
       }
        sum += item.littlePrice;
     }
+    console.info(sum);
+     return sum;
 
 }
 
