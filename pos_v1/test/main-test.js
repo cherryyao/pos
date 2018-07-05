@@ -73,5 +73,27 @@ describe('pos', () => {
   });
 });
 
+describe('pos', () => {
+  it('  Promotion() testing ', () => {
+   const tags = [
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000003-2.5',
+        'ITEM000005',
+        'ITEM000005-2',
+      ];
+      const expectText =`[{"name":"雪碧","barcode":"ITEM000001","count":5,"price":3,"unit":"瓶","littlePrice":15},{"name":"荔枝","barcode":"ITEM000003","count":2.5,"price":15,"unit":"斤","littlePrice":37.5},{"name":"方便面","barcode":"ITEM000005","count":3,"price":4.5,"unit":"袋","littlePrice":13.5}]`;
 
+      const buyedItems=BuyedItem(tags);
+      const  itemDetails= ItemDetails(buyedItems,loadAllItems());
+     const promotPrice= Promotion(itemDetails,loadPromotions());
+      console.info(JSON.stringify(promotPrice));
+//     console.info(expectText);
+      expect(JSON.stringify(itemDetails)).toEqual(expectText);
+
+  });
+});
 
