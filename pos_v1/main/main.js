@@ -7,21 +7,20 @@ let save = 0;
 
 //main function
 function printReceipt(tags){
-    const buyedItem = getItemNum(tags);
+    const buyedItem = BuyedItem(tags);
     const itemDetails=ItemDetails(buyedItem,loadAllItems());
     Promotion(itemDetails, loadPromotions());
-      let str = print(itemDetails);
+      let str = formatReceipt(itemDetails);
       console.log(str);
 }
 
 
 //1.计算商品个数
-function getItemNum(tags){
+function BuyedItem(tags){
     const item={};//空集合
     const buyedItems=[];
 
     for(let i=0;i<tags.length;i++){
-
       if(tags[i].indexOf("-")>0){
       //含有-的情况
       let sp = tags[i].split("-");
@@ -30,7 +29,6 @@ function getItemNum(tags){
        }else{
          item[sp[0]]=parseFloat(sp[1]);
        }
-
       }else{
       //不含-的普通情况
       if(item.hasOwnProperty(tags[i])){
@@ -45,6 +43,7 @@ function getItemNum(tags){
        buyedItems.push({"barcode":n,"count":item[n]})
     }
     return buyedItems;
+
 }
 
 
@@ -87,10 +86,11 @@ function Promotion(itemDetails,buyTweGetOneFree){
       }
        sum += item.littlePrice;
     }
+   
 }
 
 //4.打印
-function print(itemDetails) {
+function formatReceipt(itemDetails) {
   let str = "***<没钱赚商店>收据***\n";
   // "名称：雪碧，数量：5瓶，单价：3.00(元)，小计：12.00(元)\n名称：荔枝，数量：2.5斤，单价：15.00(元)，小计：37.50(元)\n名称：方便面，数量：3袋，单价：4.50(元)，小计：9.00(元)\n----------------------\n总计：58.50(元)\n节省：7.50(元)\n**********************"
   for (let item of itemDetails) {
