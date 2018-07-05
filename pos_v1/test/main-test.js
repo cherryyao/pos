@@ -1,7 +1,6 @@
 'use strict';
 
-describe('pos', () => {
-
+describe('pos', () => {//集成测试
   it('should print text', () => {
 
     const tags = [
@@ -31,3 +30,48 @@ describe('pos', () => {
     expect(console.log).toHaveBeenCalledWith(expectText);
   });
 });
+
+describe('pos', () => {
+  it('  BuyedItem()  testing ', () => {
+   const tags = [
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000003-2.5',
+        'ITEM000005',
+        'ITEM000005-2',
+      ];
+      const expectText =`[{"barcode":"ITEM000001","count":5},{"barcode":"ITEM000003","count":2.5},{"barcode":"ITEM000005","count":3}]`;
+      const  buyedItems= BuyedItem(tags);
+//     console.info(JSON.stringify(buyedItems));
+//     console.info(expectText);
+      expect(JSON.stringify(buyedItems)).toEqual(expectText);
+
+  });
+});
+
+describe('pos', () => {
+  it('  ItemDetails() testing ', () => {
+   const tags = [
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000003-2.5',
+        'ITEM000005',
+        'ITEM000005-2',
+      ];
+      const expectText =`[{"name":"雪碧","barcode":"ITEM000001","count":5,"price":3,"unit":"瓶","littlePrice":15},{"name":"荔枝","barcode":"ITEM000003","count":2.5,"price":15,"unit":"斤","littlePrice":37.5},{"name":"方便面","barcode":"ITEM000005","count":3,"price":4.5,"unit":"袋","littlePrice":13.5}]`;
+      const buyedItems=BuyedItem(tags);
+      const  itemDetails= ItemDetails(buyedItems,loadAllItems());
+
+      expect(JSON.stringify(itemDetails)).toEqual(expectText);
+
+  });
+});
+
+
+
