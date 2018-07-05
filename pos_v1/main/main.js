@@ -86,7 +86,7 @@ function Promotion(itemDetails,buyTweGetOneFree){
       }
        sum += item.littlePrice;
     }
-   
+
 }
 
 //4.打印
