@@ -93,6 +93,7 @@ describe('pos', () => {
 
       expect(JSON.stringify(promot)).toEqual(expectText);
 
+
   });
 });
 
