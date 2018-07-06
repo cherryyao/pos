@@ -20,24 +20,8 @@ function BuyedItem(tags){
     const item={};//空集合
     const buyedItems=[];
 
-    for(let i=0;i<tags.length;i++){
-      if(tags[i].indexOf("-")>0){
-      //含有-的情况
-      let sp = tags[i].split("-");
-        if(item.hasOwnProperty(sp[0])){
-           item[sp[0]]= item[sp[0]]+parseFloat(sp[1]);
-       }else{
-         item[sp[0]]=parseFloat(sp[1]);
-       }
-      }else{
-      //不含-的普通情况
-      if(item.hasOwnProperty(tags[i])){
-       item[tags[i]]=item[tags[i]]+1;
-      }else
-      {
-        item[tags[i]]=1;
-      }
-      }
+    for(let tag of tags){
+        splitTags(tag,item);
     }
     for (let n in item){
        buyedItems.push({"barcode":n,"count":item[n]})
@@ -45,6 +29,27 @@ function BuyedItem(tags){
     return buyedItems;
 
 }
+
+function splitTags(tag,item){
+if(tag.indexOf("-")>0){
+      //含有-的情况
+      let sp = tag.split("-");
+        if(item.hasOwnProperty(sp[0])){
+           item[sp[0]]= item[sp[0]]+parseFloat(sp[1]);
+       }else{
+         item[sp[0]]=parseFloat(sp[1]);
+       }
+      }else{
+      //不含-的普通情况
+      if(item.hasOwnProperty(tag)){
+       item[tag]=item[tag]+1;
+      }else
+      {
+        item[tag]=1;
+      }
+      }
+}
+
 
 
 //2.获得商品的详细信息
