@@ -22,7 +22,8 @@ function printReceipt(tags) {
 function formatBarcodes(tags){
   let formatBarcodes=[];
   let tempArray=[];
-  for(let tag of tags){
+  
+  tags.map(tag=>{
     let barcodeObject={
       barcode:tag,
       count:1
@@ -35,7 +36,7 @@ function formatBarcodes(tags){
     }
   }
   formatBarcodes.push(barcodeObject);
-  }
+  });
   return formatBarcodes;
 }
 
@@ -43,21 +44,20 @@ function formatBarcodes(tags){
 function CountBuyedItems(formatBarcodes){
   //console.info(formatBarcodes)
   let buyedItems=[];
-  for(let formattedBarcode of formatBarcodes){
+  formatBarcodes.map(formattedBarcode=>{
     let exitCartItem=null;
-     for(let cartItem of buyedItems){
-       
-       if(cartItem.barcode=== formattedBarcode.barcode){
+    buyedItems.map(cartItem=>{
+      if(cartItem.barcode=== formattedBarcode.barcode){
         exitCartItem=cartItem;
        }
-     }
-     if(exitCartItem !=null){
-       exitCartItem.count+=formattedBarcode.count;
-     }else{
-      buyedItems.push({...formattedBarcode});
-      console.info(buyedItems);
-     }
-  }
+    });
+    if(exitCartItem !=null){
+      exitCartItem.count+=formattedBarcode.count;
+    }else{
+     buyedItems.push({...formattedBarcode});
+     console.info(buyedItems);
+    }
+  });
   return buyedItems;
 }
 
@@ -65,7 +65,7 @@ function CountBuyedItems(formatBarcodes){
 //2.获得商品的详细信息
 function ItemDetails(buyedItems, allItems) {
   const itemDetails = [];
-  for (let item of buyedItems) {
+  buyedItems.map(item=>{   
     for (let i = 0; i < allItems.length; i++) {
       if (allItems[i].barcode == item.barcode) {
         itemDetails.push({
@@ -80,7 +80,7 @@ function ItemDetails(buyedItems, allItems) {
       }
     }
 
-  }
+  });
   return itemDetails;
 }
 
@@ -89,7 +89,7 @@ function ItemDetails(buyedItems, allItems) {
 function CalPromotion(itemDetails, buyTweGetOneFree) {
   sum = 0;
   const barcodes = buyTweGetOneFree[0].barcodes;
-  for (let item of itemDetails) {
+  itemDetails.map(item=>{
     for (let i = 0; i < barcodes.length; i++) {
       if (item.barcode === barcodes[i]) {
         if (item.count / 2 > 0) {
@@ -100,7 +100,8 @@ function CalPromotion(itemDetails, buyTweGetOneFree) {
       }
     }
     sum += item.littlePrice;
-  }
+
+  });
   console.info(sum);
   return sum;
 
